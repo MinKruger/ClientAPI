@@ -1,4 +1,4 @@
-# client-side-api
+# Vue Project to consume my Web API
 
 ## Project setup
 ```
