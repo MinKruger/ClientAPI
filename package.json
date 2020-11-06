@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "bootstrap": "^4.5.3",
+    "bootstrap-vue": "^2.18.1",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-radial-menu": "^1.1.1",
-    "vue-router": "^3.4.8"
+    "vue-router": "^3.4.8",
+    "vue-table-dynamic": "^0.3.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/Products',
     name: 'Products',
-    component: () => import('../views/Client.vue')
+    component: () => import('../views/Product.vue')
   },
   {
     path: '/Sales',

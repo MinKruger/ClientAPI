@@ -6,27 +6,20 @@
                 <div class="wrapper fadeInDown">
                     <div id="formContent">
                         <input class="form-control" v-model="searchQuery" type="text" placeholder="Search for names...">
-                        <b-form-checkbox
-                          id="checkbox-1"
-                          v-model="status"
-                          name="checkbox-1"
-                          value="accepted"
-                          unchecked-value="not_accepted"
-                        >
-                          Search for Clients outside Head Office
-                        </b-form-checkbox>
                         <div class="table-responsive">
-                          <table class="table" v-if="clients.length">
+                          <table class="table" v-if="products.length">
                             <thead>
                               <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Value</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="(item, index) in searchClient()" :key="index" :value="item.id">
+                              <tr v-for="(item, index) in searchProduct()" :key="index" :value="item.id">
                                 <td>{{item.id}}</td>
-                                <td>{{item.name}}</td>
+                                <td>{{item.description}}</td>
+                                <td>${{item.value}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -49,45 +42,32 @@ export default {
     RadialMenu,
   },
   data: () => ({
-    clients: [],
+    products: [],
     searchQuery: '',
-    status: '',
   }),
   methods: {
-    async getClients(id) {
-      if (status) {
-        await axios.get('Clients')
-        .then(res => {
+    async getProducts() {
+      await axios.get('Products')
+      .then(res => {
           console.log(res)
-          this.clients = [...res.data]
-        })
-        .catch(err => {
+          this.products = [...res.data]
+      })
+      .catch(err => {
           console.log('an error occured ' + err)
-        })
-      }else {
-        await axios.get('Clients/Section/'+id)
-        .then(res => {
-          console.log(res)
-          this.clients = [...res.data]
-        })
-        .catch(err => {
-          console.log('an error occured ' + err)
-        })
-      }
+      })
     },
-    searchClient() {
+    searchProduct() {
       if (this.searchQuery) {
-        return this.clients.filter((item)=>{
-          return this.searchQuery.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        return this.products.filter((item)=>{
+          return this.searchQuery.toLowerCase().split(' ').every(v => item.description.toLowerCase().includes(v))
         })
       }else{
-        return this.clients
+        return this.products
       }
     }
   },
   created () {
-    var headOfficeId = localStorage.getItem('headOfficeId')
-    this.getClients(headOfficeId)
+    this.getProducts()
   }
 }
 </script>
